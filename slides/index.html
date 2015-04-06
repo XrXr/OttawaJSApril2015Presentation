@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>ES6 features I would use everyday</title>
+
+        <meta name="description" content="Presentation about ES6 features for Ottawa JavaScript April 2015 meeup">
+        <meta name="author" content="Alan Wu">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="reveal.js/css/reveal.css">
+		<link rel="stylesheet" href="reveal.js/css/theme/night.css" id="theme">
+
+        <!-- <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script> -->
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h3>ES6 features I would use everyday</h3>
+          <aside class="notes">This is an expansion of a section of a talk I did while back. I got exposed to some of the ES6 features while making Firefox add-ons. If you look at the JavaScript in Firefox internals, they use a lot of the features I'm going to be talking about today. Some of these features have been inside Firefox for quite a while, just not for webpages</aside>
+				</section>
+
+				<section>
+          <h3>All of the features I talk about in this talk are usable right now</h3>
+          <small>In the latest browsers and latest Node</small>
+        </section>
+
+        <section>
+          <section>
+            <h2>Variable declearation</h2>
+          </section>
+          <section>
+            <h2>let</h2>
+            <ul>
+              <li>not hoisted</li>
+              <li>block scoped</li>
+            </ul>
+          </section>
+          <section>
+            <h2>const</h2>
+            <ul>
+              <li>same properties as let</li>
+              <li>assignment won't throw an error but has no effect</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Destructuring assignment</h3>
+          </section>
+          <section>
+            <h3>What's wrong with this code?</h3>
+<pre><code>var compileETag = require('./utils').compileETag;
+var compileQueryParser = require('./utils').compileQueryParser;
+var compileTrust = require('./utils').compileTrust;
+var deprecate = require('depd')('express');
+var merge = require('utils-merge');
+var resolve = require('path').resolve;
+var slice = Array.prototype.slice;
+</code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Arrow function expressions</h3>
+            <ul>
+              <li>shorter syntax for lambdas</li>
+              <li>lexical "this"</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>Syntax</h3>
+            <p>Connected by <code>=></code></p>
+            <table>
+                <thead>
+                    <th>Params</th>
+                    <th>Body</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>()</td><td><code>expression</code></td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td><code>singleParam</code></td><td><code>{...return 0;}</code></td>
+                    </tr>
+                    <tr><td><code>(singleParam)</code></td><td></td></tr>
+                    <tr><td><code>(foo, bar, ...)</code></td><td></td></tr>
+                </tbody>
+            </table>
+          </section>
+        </section>
+
+        <section>
+            <h2>Alan Wu</h2>
+            <span><a href="http://xrxr.me">xrxr.me</a></span>
+        </section>
+
+			</div>
+
+		</div>
+
+		<script src="reveal.js/lib/js/head.min.js"></script>
+		<script src="reveal.js/js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: "fade", // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+                    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+					{ src: 'reveal.js/plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
