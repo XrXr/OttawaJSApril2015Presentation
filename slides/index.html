@@ -34,30 +34,41 @@
 			<div class="slides">
 				<section>
 					<h3>ES6 features I would use everyday</h3>
-          <aside class="notes">This is an expansion of a section of a talk I did while back. I got exposed to some of the ES6 features while making Firefox add-ons. If you look at the JavaScript in Firefox internals, they use a lot of the features I'm going to be talking about today. Some of these features have been inside Firefox for quite a while, just not for webpages</aside>
+          <aside class="notes">Hello everyone, today I'm going to talk about some neat ES6 features. ES6, if you are unfamiliar is the next JavaScript standard. It's scheduled to publish in June, and I suspect all the major browsers will implement it by the end of this year.</aside>
 				</section>
 
 				<section>
-          <h3>All of the features I talk about in this talk are usable right now</h3>
+          <h3>A lot of the features I talk about in this talk are usable right now</h3>
           <small>In the latest browsers and latest Node</small>
+          <br>
+          <small><a href="https://kangax.github.io/compat-table/es6">https://kangax.github.io/compat-table/es6</a> for current situation</small>
+          <aside class="notes">I first got exposed to some of these features when I was doing
+          Firefox add-on development. I found that they made my life easier, so I started to incorporate more and more of them into my code. I found the result to be quite nice</aside>
         </section>
 
         <section>
           <section>
-            <h2>Variable declearation</h2>
+            <h2>Variable declaration</h2>
+            <aside class="notes">I'm going to start off with variable declaration</aside>
           </section>
           <section>
             <h2>let</h2>
             <ul>
-              <li>not hoisted</li>
               <li>block scoped</li>
+              <li>temporal dead zone</li>
+              <aside class="notes">
+                - temporal dead zone refers code from the beginning of a block to the line where let appears
+                - different from var
+                - different from hoisted
+              </aside>
             </ul>
           </section>
           <section>
             <h2>const</h2>
             <ul>
               <li>same properties as let</li>
-              <li>assignment won't throw an error but has no effect</li>
+              <li>assignment throws an error</li>
+              <li>you can still change the properties of a const object</li>
             </ul>
           </section>
         </section>
@@ -77,6 +88,48 @@ var resolve = require('path').resolve;
 var slice = Array.prototype.slice;
 </code></pre>
           </section>
+          <section>
+            <h3>With destructuring you could be writting</h3>
+<pre><code>var { compileETag } = require('./utils');
+var { compileQueryParser } = require('./utils');
+var { compileTrust } = require('./utils');
+var deprecate = require('depd')('express');
+var merge = require('utils-merge');
+var { resolve } = require('path');
+var { slice } = Array.prototype;
+</code></pre>
+          <aside class="notes">
+            The first line is say, get the property "compileETag" from the object on the
+            right hand side, then assign it to a variable of the same name
+          </aside>
+          </section>
+          <section>
+            <h3>Works with arrays</h3>
+<pre><code>let [a, b] = [1, 2];
+[a, b] = [b, a];  // swap variables
+</code></pre>
+          </section>
+          <section>
+            <h3>.. and multiple properties</h3>
+<pre><code>let { a, b } = {a: "hello", b: "world"};</code></pre>
+          </section>
+
+          <section>
+            <h2>Available in function parameters</h2>
+<pre><code>function foo ([x, y], {bar, baz}) {
+    console.log(x, y, bar, baz);
+}
+
+foo([100, 12], {bar: "hello", baz: "world"});
+</code></pre>
+          </section>
+
+          <section>
+            <h3>Non-refutable :(</h3>
+<pre><code>let [a, b] = [12]</code></pre>
+            <h3><code>b</code> is assigned with <code>undefined</code></h3>
+            <p>refutable destructuring didn't make it into the draft</p>
+          </section>
         </section>
 
         <section>
@@ -86,6 +139,12 @@ var slice = Array.prototype.slice;
               <li>shorter syntax for lambdas</li>
               <li>lexical "this"</li>
             </ul>
+            <aside class="notes">
+            ..the same thing doesn't happen with the arrow function because of
+            the capturing. Even if I save a reference to the arrow function,
+            then call it, I would still get 100. That is because the "this"
+            inside the arrow function is the same as the "this" here and here
+            </aside>
           </section>
 
           <section>
@@ -109,11 +168,32 @@ var slice = Array.prototype.slice;
                 </tbody>
             </table>
           </section>
+
+          <section>
+            <blockquote cite="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-arrow-function-definitions-runtime-semantics-evaluation">
+              <p>An ArrowFunction does not define local bindings for arguments, super, this, or new.target. Any reference to arguments, super, or this within an ArrowFunction must resolve to a binding in a lexically enclosing environment. Typically this will be the Function Environment of an immediately enclosing function.</p>
+            </blockquote>
+          </section>
         </section>
 
         <section>
-            <h2>Alan Wu</h2>
-            <span><a href="http://xrxr.me">xrxr.me</a></span>
+          <h2><code>for..of</code> loops</h2>
+          <ul>
+            <li>like <code>for..in</code> loops in Python</li>
+            <li>works with iterables</li>
+            <li>string</li>
+            <li>array</li>
+            <li>dom collection</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Far from the full story</h2>
+        </section>
+
+        <section>
+          <h2>Alan Wu</h2>
+          <span><a href="http://xrxr.me">xrxr.me</a></span>
         </section>
 
 			</div>
@@ -141,15 +221,16 @@ var slice = Array.prototype.slice;
 
 				// Optional libraries used to extend on reveal.js
 				dependencies: [
-                    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-                    { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-                    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
-					{ src: 'reveal.js/plugin/notes/notes.js', async: true }
+					{ src: 'http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js', async: true, callback: function() {
+              hljs.configure({languages: ["js"]});
+              hljs.initHighlightingOnLoad();
+            }
+          },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+					  { src: 'reveal.js/plugin/notes/notes.js', async: true
+          }
 				]
 			});
-
 		</script>
 
 	</body>

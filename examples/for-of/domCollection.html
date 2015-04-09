@@ -1,0 +1,13 @@
+<ul>
+  <li>something</li>
+  <li>very</li>
+  <li>interesting</li>
+</ul>
+
+<script>
+  var collection = document.querySelectorAll("li");
+  alert("collection has a push method? " + ("push" in collection));
+  for (var i of collection) {
+    alert(i.textContent);
+  }
+</script>

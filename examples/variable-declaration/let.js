@@ -1,7 +1,8 @@
-function a () {
-  "use strict";
-  console.log(a);
-  let a = 100;
+if (true) {
+    let foo = 100;
 }
+console.log(foo);  // ReferenceError
 
-a();
+
+for (let i = 0; i < 50; i++) {}
+console.log(i);  // ReferenceError
